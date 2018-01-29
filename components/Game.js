@@ -1,5 +1,6 @@
 import { Component } from 'react'
 import Bird from './Bird'
+import BackGround from './decor/BackGround'
 
 const tileSize = 30
 const gameWidth = 24
@@ -20,7 +21,6 @@ class Game extends Component {
 
     this.state = {}
     this.state.bird = {x:12, y:6, dir: 'left', frame: 1}
-
   }
   componentDidMount () {
     document.body.addEventListener('keydown', ((e) => {
@@ -34,7 +34,7 @@ class Game extends Component {
   }
   render () {
     return (<svg id='game' viewBox={vb.join(' ')} width='100%'>
-      <rect x='0' y='0' width={vb[2]} height={vb[3]} fill='darkgray'/>
+      <BackGround vb={vb} />
       {tiles.map((row, i)=>{
         return row.map((tile, j)=>{
           return <image key={i+'-'+j} href={tile.img} x={tile.x*tileSize} y={tile.y*tileSize} />
