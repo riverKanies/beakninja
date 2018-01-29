@@ -11,16 +11,19 @@ const tiles = []
 for (let i=0; i<gameHeight; i++) {
   tiles[i] = []
   for (let j=0; j<gameWidth; j++) {
-    if (i<2 || i>11) tiles[i][j] = {x: j, y: i, img: '/static/tiles/tile1.PNG'}
-    if (j<4 || j>19) tiles[i][j] = {x: j, y: i, img: '/static/tiles/tile1.PNG'}
+    if (i<2 || i>11) tiles[i][j] = {img: '/static/tiles/tile1.PNG'}
+    if (j<4 || j>19) tiles[i][j] = {img: '/static/tiles/tile1.PNG'}
   }
 }
+tiles[2][7] = {img: '/static/tiles/tile1.PNG'}
+tiles[11][13] = {img: '/static/tiles/tile1.PNG'}
+
 class Game extends Component {
   constructor (props) {
     super(props)
 
     this.state = {}
-    this.state.bird = {x:12, y:6, dir: 'left', frame: 1}
+    this.state.bird = {x:12, y:6, dir: 'down', frame: 1, moving: false}
   }
   componentDidMount () {
     document.body.addEventListener('keydown', ((e) => {
@@ -31,13 +34,14 @@ class Game extends Component {
       this.move(dir)
       }).bind(this))
     this.animate()
+    this.move()
   }
   render () {
     return (<svg id='game' viewBox={vb.join(' ')} width='100%'>
       <BackGround vb={vb} />
       {tiles.map((row, i)=>{
         return row.map((tile, j)=>{
-          return <image key={i+'-'+j} href={tile.img} x={tile.x*tileSize} y={tile.y*tileSize} />
+          return <image key={i+'-'+j} href={tile.img} x={j*tileSize} y={i*tileSize} />
         })
       })}
       <Bird bird={this.state.bird} />
