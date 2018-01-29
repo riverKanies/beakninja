@@ -10,7 +10,8 @@ const tiles = []
 for (let i=0; i<gameHeight; i++) {
   tiles[i] = []
   for (let j=0; j<gameWidth; j++) {
-    tiles[i][j] = {x: j, y: i, img: '/static/tiles/tile1.PNG'}
+    if (i<2 || i>11) tiles[i][j] = {x: j, y: i, img: '/static/tiles/tile1.PNG'}
+    if (j<4 || j>19) tiles[i][j] = {x: j, y: i, img: '/static/tiles/tile1.PNG'}
   }
 }
 class Game extends Component {
@@ -18,10 +19,21 @@ class Game extends Component {
     super(props)
 
     this.state = {}
-    this.state.bird = {x:12, y:6, dir: 'up'}
+    this.state.bird = {x:12, y:6, dir: 'left', frame: 1}
+
+  }
+  componentDidMount () {
+    document.body.addEventListener('keydown', ((e) => {
+      //e.preventDefault()
+      if (this.state.bird.moving) return
+      const keyconverter = {38: 'up', 37: 'left', 40: 'down', 39: 'right'}
+      const dir = keyconverter[e.keyCode]
+      this.move(dir)
+      }).bind(this))
+    this.animate()
   }
   render () {
-    return (<svg viewBox={vb.join(' ')} width='100%'>
+    return (<svg id='game' viewBox={vb.join(' ')} width='100%'>
       <rect x='0' y='0' width={vb[2]} height={vb[3]} fill='darkgray'/>
       {tiles.map((row, i)=>{
         return row.map((tile, j)=>{
@@ -31,13 +43,32 @@ class Game extends Component {
       <Bird bird={this.state.bird} />
     </svg>)
   }
-  componentDidMount () {
-    this.animate()
+  move (dir) {
+    if (!dir) dir = this.state.bird.dir
+    let dx = 0
+    let dy = 0
+    if (dir == 'up') dy = -1
+    if (dir == 'down') dy = 1
+    if (dir == 'left') dx = -1
+    if (dir == 'right') dx = 1
+    if (dx == 0 && dy == 0) return
+    const {x,y} = this.state.bird
+    const blocked = tiles[y+dy][x+dx]
+    let moving = false
+    if (blocked) {
+      dx = 0
+      dy = 0
+    } else {
+      setTimeout(this.move.bind(this), 50)
+      moving = true
+    }
+    this.setState({bird: {...this.state.bird, x: x+dx, y: y+dy, dir, moving} })
   }
   animate () {
-    const newDir = this.state.bird.dir == 'down' ? 'up' : 'down'
-    this.setState({bird: {...this.state.bird, dir: newDir}})
-    window.setTimeout(()=>{this.animate()}, 5000)
+    const {frame} = this.state.bird
+    const newFrame = frame < 2 ? frame + 1 : 1
+    this.setState({bird: {...this.state.bird, frame: newFrame}})
+    window.setTimeout(()=>{this.animate()}, 2000)
   }
 }
 
