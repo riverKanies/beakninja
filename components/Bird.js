@@ -15,5 +15,8 @@ export default (props) => {
         x=-20
     }
     const transform = `translate(${x},${y})`
-    return <image x={props.bird.x*tileSize} y={props.bird.y*tileSize} href={`/static/bird/${dir}${props.bird.frame || 1}.PNG`} transform={transform}/>
+    let birdFrame = props.bird.frame || 1
+    if (props.bird.moving) birdFrame = 1
+    const birdImage = `/static/bird/${(props.bird.moving ? 'move-' : '')}${dir}${birdFrame}.PNG`
+    return <image x={props.bird.x*tileSize} y={props.bird.y*tileSize} href={birdImage} transform={transform}/>
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Leaf from './Leaf'
+import leaves from './leaves'
 
 const gradientId = 'gradient-BackGround'
 
@@ -10,12 +11,7 @@ export default class BackGround extends Component {
         console.log('back', vb)
 
         this.state={}
-        this.state.leaves = Array.from(Array(100).keys()).map((key)=>{
-            const x = vb[0]+Math.random()*vb[2]
-            const y = vb[1]+Math.random()*vb[3]
-            const a = Math.random()*360
-            return {x,y,a}
-        })
+        this.state.leaves = leaves
     }
     render() {
         const vb = this.props.vb
