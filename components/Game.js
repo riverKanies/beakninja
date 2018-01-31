@@ -24,14 +24,23 @@ class Game extends Component {
 
     this.state = {}
     this.state.bird = {x:12, y:6, dir: 'down', frame: 1, moving: false}
+    this.state.audio = {}
   }
   componentDidMount () {
+    this.state.audio.BaaThing = document.createElement('audio')
+    this.state.audio.BaaThing.src = '/static/audio/BaaThing.m4a'
+    this.state.audio.BaThiiing = document.createElement('audio')
+    this.state.audio.BaThiiing.src = '/static/audio/BaThiiing.m4a'
+    console.log('audio', this.state.audio)
     document.body.addEventListener('keydown', ((e) => {
       //e.preventDefault()
       if (this.state.bird.moving) return
       const keyconverter = {38: 'up', 37: 'left', 40: 'down', 39: 'right'}
       const dir = keyconverter[e.keyCode]
       this.move(dir)
+      const sound = Math.random() < .5 ? 'BaaThing' : 'BaThiiing'
+      const noise = this.state.audio[sound]
+      noise.play()  
       }).bind(this))
     this.animate()
     this.move()
