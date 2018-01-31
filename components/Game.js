@@ -1,22 +1,12 @@
 import { Component } from 'react'
 import Bird from './Bird'
 import BackGround from './decor/BackGround'
+import tiles from './levels/1'
 
 const tileSize = 30
 const gameWidth = 24
 const gameHeight = 14
 const vb = [0, 0, gameWidth*tileSize, gameHeight*tileSize]
-
-const tiles = []
-for (let i=0; i<gameHeight; i++) {
-  tiles[i] = []
-  for (let j=0; j<gameWidth; j++) {
-    if (i<2 || i>11) tiles[i][j] = {img: '/static/tiles/tile1.PNG'}
-    if (j<4 || j>19) tiles[i][j] = {img: '/static/tiles/tile1.PNG'}
-  }
-}
-tiles[2][7] = {img: '/static/tiles/tile1.PNG'}
-tiles[11][13] = {img: '/static/tiles/tile1.PNG'}
 
 class Game extends Component {
   constructor (props) {
@@ -31,7 +21,6 @@ class Game extends Component {
     this.state.audio.BaaThing.src = '/static/audio/BaaThing.m4a'
     this.state.audio.BaThiiing = document.createElement('audio')
     this.state.audio.BaThiiing.src = '/static/audio/BaThiiing.m4a'
-    console.log('audio', this.state.audio)
     document.body.addEventListener('keydown', ((e) => {
       //e.preventDefault()
       if (this.state.bird.moving) return
@@ -50,6 +39,7 @@ class Game extends Component {
       <BackGround vb={vb} />
       {tiles.map((row, i)=>{
         return row.map((tile, j)=>{
+          if (!tile) return ''
           return <image key={i+'-'+j} href={tile.img} x={j*tileSize} y={i*tileSize} />
         })
       })}
