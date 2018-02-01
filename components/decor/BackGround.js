@@ -8,7 +8,6 @@ export default class BackGround extends Component {
     constructor(props) {
         super(props)
         const vb = this.props.vb
-        console.log('back', vb)
 
         this.state={}
         this.state.leaves = leaves

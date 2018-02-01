@@ -13,8 +13,8 @@ const w2 = {dir: 'up'}
 const w3 = {dir: 'left'}
 const w4 = {dir: 'right'}
 
-export default (
-    [
+export default ({
+    level: [
         [t1, bL, t1, ee, t2, ee, ee, ee, ee, ee, bR, b2, b2, b2, b2, b2, b2, b2, b1, t1, ee, t1, ee, t1],
         [t1, ee, t2, ee, t1, bR, b2, b2, b2, b2, b2, b2, b2, b2, b2, b2, b2, b2, b1, t1, bL, t1, ee, t2],
         [t1, ee, t1, bR, t1, bL, ee, ee, ee, bR, bL, ee, ee, bR, bL, ee, ee, ee, bR, t1, ee, t1, bL, t1],
@@ -29,6 +29,7 @@ export default (
         [t1, d1, d1, d2, t1, d1, d1, d1, d2, d2, d1, d1, d1, d1, d2, d1, d1, d1, d2, t2, d2, d2, d1, t1],
         [d1, d2, d1, d1, d1, d2, d1, d1, d2, d1, d1, d1, d1, d1, d1, d1, d2, d2, d2, d1, d1, d1, d1, d1],
         [d1, d2, d1, d1, d1, d2, d1, d1, d2, d1, d1, d1, d1, d1, d1, d1, d2, d2, d2, d1, d1, d1, d1, d1],
-    ]
-)
-export const pos2 = {x: 10, y: 10}
+    ],
+    pos: {x: 10, y: 10},
+    wormCount: 8,
+})

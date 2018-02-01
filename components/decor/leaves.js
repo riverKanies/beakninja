@@ -6,4 +6,3 @@ export default [{"x":616.6202034371299,"y":57.89041836613069,"a":333.48881631712
 //     const a = Math.random()*360
 //     return {x,y,a}
 // })
-// console.log('leaves', JSON.stringify(this.state.leaves))
