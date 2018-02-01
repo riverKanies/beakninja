@@ -14,7 +14,7 @@ class Game extends Component {
     super(props)
 
     this.state = {}
-    this.state.bird = {x:12, y:6, dir: 'down', frame: 1, moving: false}
+    this.state.bird = {x:10, y:9, dir: 'down', frame: 1, moving: false}
     this.state.audio = {}
     this.state.level = level
     this.state.wormFrame = 1

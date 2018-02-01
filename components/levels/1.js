@@ -15,19 +15,19 @@ const w4 = {dir: 'right'}
 
 export default (
     [
-        [ee, t1, ee, t1, bR, b2, b2, b2, b2, b2, b2, b2, b2, b2, b2, b2, b2, b2, b2, b1, t1, ee, t1, ee],
-        [ee, t1, ee, t2, bR, b2, b2, b2, b2, b2, b2, b2, b2, b2, b2, b2, b2, b2, b2, b1, t1, ee, t1, ee],
-        [ee, t2, ee, t1, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, t1, bL, t1, ee],
-        [ee, t1, bR, t1, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, t1, ee, t1, bL],
-        [ee, t1, ee, t2, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, t2, ee, t1, ee],
-        [bR, t1, ee, t1, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, t1, ee, t2, ee],
-        [ee, t1, ee, t1, w3, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, bR, t1, bR, t1, ee],
-        [ee, t2, bL, t1, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, t1, ee, t1, bL],
-        [ee, t1, ee, t2, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, t2, ee, t1, ee],
-        [ee, t1, ee, t1, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, t1, bL, t1, ee],
-        [bR, t1, ee, t1, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, t1, ee, t1, ee],
-        [ee, t1, ee, t1, ee, ee, ee, w1, ee, ee, d2, ee, ee, w1, ee, ee, ee, ee, ee, ee, t1, ee, t1, ee],
-        [d1, d1, d2, d1, d1, d1, d1, d2, d2, d1, d1, d1, d1, d2, d1, d1, d1, d1, d1, d2, d2, d2, d2, d1],
-        [d2, d1, d1, d1, d2, d1, d1, d2, d1, d1, d1, d1, d1, d1, d1, d2, d2, d1, d2, d2, d1, d1, d1, d1],
+        [t1, bL, t1, ee, t2, ee, ee, ee, ee, ee, bR, b2, b2, b2, b2, b2, b2, b2, b1, t1, ee, t1, ee, t1],
+        [t1, ee, t2, ee, t1, bR, b2, b2, b2, b2, b2, b2, b2, b2, b2, b2, b2, b2, b1, t1, bL, t1, ee, t2],
+        [t1, ee, t1, bR, t1, bL, ee, ee, ee, bR, bL, ee, ee, bR, bL, ee, ee, ee, bR, t1, ee, t1, bL, t1],
+        [t2, ee, t1, ee, t2, ee, ee, ee, ee, ee, ee, ee, ee, w2, ee, ee, ee, ee, ee, t2, ee, t1, bR, t1],
+        [t1, bR, t1, ee, t1, ee, ee, ee, w1, ee, ee, ee, ee, ee, ee, ee, w4, t2, ee, t1, ee, t2, ee, t2],
+        [t1, ee, t1, ee, t1, ee, ee, ee, t2, ee, ee, ee, ee, ee, t2, ee, ee, ee, ee, t1, bR, t1, ee, t1],
+        [t1, ee, t2, bL, t1, ee, ee, ee, ee, ee, w1, ee, ee, ee, ee, ee, ee, ee, ee, t1, ee, t1, bL, t1],
+        [t1, bL, t1, ee, t2, ee, ee, ee, ee, ee, t2, ee, ee, ee, ee, ee, ee, ee, ee, t2, ee, t1, ee, t1],
+        [t2, ee, t1, ee, t1, ee, t2, w3, ee, ee, w2, ee, ee, ee, w4, t2, ee, ee, ee, t1, bL, t1, bR, t1],
+        [t1, bR, t1, ee, t1, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, ee, t1, ee, t1, ee, t2],
+        [t1, ee, t1, ee, t1, ee, ee, ee, ee, ee, ee, d1, d2, w1, ee, ee, ee, ee, ee, t1, ee, t1, ee, t1],
+        [t1, d1, d1, d2, t1, d1, d1, d1, d2, d2, d1, d1, d1, d1, d2, d1, d1, d1, d2, t2, d2, d2, d1, t1],
+        [d1, d2, d1, d1, d1, d2, d1, d1, d2, d1, d1, d1, d1, d1, d1, d1, d2, d2, d2, d1, d1, d1, d1, d1],
+        [d1, d2, d1, d1, d1, d2, d1, d1, d2, d1, d1, d1, d1, d1, d1, d1, d2, d2, d2, d1, d1, d1, d1, d1],
     ]
 )
