@@ -2,7 +2,13 @@ import { Component } from 'react'
 import Bird from './Bird'
 import Worm from './Worm'
 import BackGround from './decor/BackGround'
-import level from './levels/1'
+import Menu from './Menu'
+import level1 from './levels/1'
+
+const levels = [
+  null,
+  level1
+]
 
 const tileSize = 30
 const gameWidth = 24
@@ -14,10 +20,13 @@ class Game extends Component {
     super(props)
 
     this.state = {}
-    this.state.bird = {x:10, y:9, dir: 'down', frame: 1, moving: false}
+    this.state.bird = {x:10, y:10, dir: 'down', frame: 1, moving: false}
     this.state.audio = {}
-    this.state.level = level
+    this.state.level = levels[0]
     this.state.wormFrame = 1
+    this.state.menuOpen = true
+
+    this.startLevel = this.startLevel.bind(this)
   }
   componentDidMount () {
     this.state.audio.BaaThing = document.createElement('audio')
@@ -28,21 +37,31 @@ class Game extends Component {
     this.state.audio.EatWorm.src = '/static/audio/EatWorm.m4a'
 
     document.body.addEventListener('keydown', ((e) => {
+      if (this.state.menuOpen) return
       //e.preventDefault()
       if (this.state.bird.moving) return
       const keyconverter = {38: 'up', 37: 'left', 40: 'down', 39: 'right'}
       const dir = keyconverter[e.keyCode]
       this.move(dir)
-      const sound = Math.random() < .5 ? 'BaaThing' : 'BaThiiing'
-      const noise = Math.random() < .7 ? this.state.audio[sound] : null
-      if (noise) noise.play()  
+      if (dir) {
+        const sound = Math.random() < .5 ? 'BaaThing' : 'BaThiiing'
+        const noise = Math.random() < .7 ? this.state.audio[sound] : null
+        if (noise) noise.play()
+      }
       }).bind(this))
     this.animate()
-    this.move()
+    //this.move()
   }
   render () {
     return (<svg id='game' viewBox={vb.join(' ')} width='100%'>
       <BackGround vb={vb} />
+      {this.renderLevel()}
+      <Menu vb={vb} open={this.state.menuOpen} startLevel={this.startLevel} />
+    </svg>)
+  }
+  renderLevel() {
+    if (!this.state.level) return ''
+    return <g>
       {this.state.level.map((row, i)=>{
         return row.map((tile, j)=>{
           if (!tile) return ''
@@ -54,9 +73,10 @@ class Game extends Component {
         })
       })}
       <Bird bird={this.state.bird} />
-    </svg>)
+    </g>
   }
   move (dir) {
+    if (!this.state.level) return
     if (!dir) dir = this.state.bird.dir
     let dx = 0
     let dy = 0
@@ -66,7 +86,7 @@ class Game extends Component {
     if (dir == 'right') dx = 1
     if (dx == 0 && dy == 0) return
     const {x,y} = this.state.bird
-    const tile = level[y+dy][x+dx]
+    const tile = this.state.level[y+dy][x+dx]
     const blocked = tile && tile.img
     let moving = false
     if (blocked) {
@@ -90,8 +110,16 @@ class Game extends Component {
   eatWorm(x,y) {
     const tile = this.state.level[y][x]
     if (tile && !tile.img) {
-      level[y][x] = '' //setState
+      this.state.level[y][x] = '' //setState
       this.state.audio.EatWorm.play()
+    }
+  }
+  startLevel(num) {
+    return () => {
+      this.setState({
+        level: levels[num],
+        menuOpen: !this.state.menuOpen
+      })
     }
   }
 }
