@@ -3,11 +3,21 @@ import Bird from './Bird'
 import Worm from './Worm'
 import BackGround from './decor/BackGround'
 import Menu from './Menu'
-import level1 from './levels/1'
+import level1, {pos1} from './levels/1'
+import level2,  {pos2} from './levels/2'
+import level3, {pos3} from './levels/3'
 
 const levels = [
   null,
-  level1
+  level1,
+  level2,
+  level3
+]
+const positions = [
+  null,
+  pos1,
+  pos2,
+  pos3
 ]
 
 const tileSize = 30
@@ -20,7 +30,7 @@ class Game extends Component {
     super(props)
 
     this.state = {}
-    this.state.bird = {x:10, y:10, dir: 'down', frame: 1, moving: false}
+    this.state.bird = {x:0, y:0, dir: 'down', frame: 1, moving: false}
     this.state.audio = {}
     this.state.level = levels[0]
     this.state.wormFrame = 1
@@ -116,9 +126,11 @@ class Game extends Component {
   }
   startLevel(num) {
     return () => {
+      const {x, y} = positions[num]
       this.setState({
         level: levels[num],
-        menuOpen: !this.state.menuOpen
+        menuOpen: !this.state.menuOpen,
+        bird: {...this.state.bird, x, y}
       })
     }
   }

@@ -14,8 +14,9 @@ export default (props) => {
                     textAnchor={'middle'}
                     fontSize={'150px'}
                     strokeWidth={2}
-                    onMouseDown={props.startLevel(num)}>
-                        {num}
+                    onMouseDown={props.startLevel(num)}
+                >
+                    {num}
                 </text>
             })}
         </g>
