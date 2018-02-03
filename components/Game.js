@@ -1,5 +1,4 @@
 import { Component } from 'react'
-import Head from 'next/head'
 import Bird from './Bird'
 import Worm from './Worm'
 import BackGround from './decor/BackGround'
@@ -50,6 +49,7 @@ class Game extends Component {
     this.startLevel = this.startLevel.bind(this)
   }
   componentDidMount () {
+    // audio
     this.state.audio.BaaThing = document.createElement('audio')
     this.state.audio.BaaThing.src = '/static/audio/BaaThing.m4a'
     this.state.audio.BaThiiing = document.createElement('audio')
@@ -59,18 +59,35 @@ class Game extends Component {
     this.state.audio.GuThing = document.createElement('audio')
     this.state.audio.GuThing.src = '/static/audio/GuThing.m4a'
 
-//
-    document.body.addEventListener('touchstart', ()=>{
-      console.log('touch')
-    })
+    // resize
+    const aspectRatio = 12/7 // width/height
+    function resize(canvas, svg) {
+        const width = window.innerWidth
+        const height = window.innerHeight
+        if (width/height > aspectRatio) {
+            const canvasWidth = height * aspectRatio
+            canvas.style.width = canvasWidth
+            canvas.style.marginLeft = ( width - canvasWidth ) / 2
+            canvas.style.marginTop = 0
+        } else {
+            canvas.style.width = width
+            const canvasHeight = width / aspectRatio
+            canvas.style.marginTop = (height - canvasHeight)/2
+            canvas.style.marginLeft = 0
+        }
+    }
+    const canvas = document.getElementById('game')
+    resize(canvas)
+    window.addEventListener('resize', function () {
+        resize(canvas)
+    }, false)
 
+    // load hammer and set swipe listeners
     const script = document.createElement('script');
     script.onload = ()=>{
-      console.log('loaded')
       const hammertime = new Hammer(document.body);
       hammertime.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
       hammertime.on('swipe', (ev)=>{
-        console.log('swiping', ev.offsetDirection);
         const keyconverter = {2: 'left', 4: 'right', 8: 'up', 16: 'down'}
         const dir = keyconverter[ev.offsetDirection]
         this.input(dir)
@@ -78,12 +95,15 @@ class Game extends Component {
     };
     script.src = '/static/src/hammer.js';
     document.head.appendChild(script);
-//
+
+    // let arrow key listeners
     document.body.addEventListener('keydown', ((e) => {
       const keyconverter = {38: 'up', 37: 'left', 40: 'down', 39: 'right'}
       const dir = keyconverter[e.keyCode]
       this.input(dir)
     }).bind(this))
+
+    // start animations
     this.animate()
   }
   input (dir) {
@@ -97,9 +117,7 @@ class Game extends Component {
     }
   }
   render () {
-    return (<div>
-      <Head>
-      </Head>
+    return (<div id='canvas' style={{width: '100%'}}>
       <svg id='game' viewBox={vb.join(' ')} width='100%'>
         <BackGround vb={vb} />
         {this.renderLevel()}

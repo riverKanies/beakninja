@@ -12,8 +12,8 @@ const Index = () => (
               image-rendering: pixelated;
               image-rendering: crisp-edges;
           
-              background: darkgray;
-              margin: 0 5%;
+              background: black;
+              margin: 0;
           }
       `}</style>
     </div>
