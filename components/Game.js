@@ -44,6 +44,7 @@ class Game extends Component {
     this.state = initialState
     this.state.audio = {}
     this.state.wormFrame = 1
+    this.state.finished = false
 
     this.startLevel = this.startLevel.bind(this)
   }
@@ -54,6 +55,8 @@ class Game extends Component {
     this.state.audio.BaThiiing.src = '/static/audio/BaThiiing.m4a'
     this.state.audio.EatWorm = document.createElement('audio')
     this.state.audio.EatWorm.src = '/static/audio/EatWorm.m4a'
+    this.state.audio.GuThing = document.createElement('audio')
+    this.state.audio.GuThing.src = '/static/audio/GuThing.m4a'
 
     document.body.addEventListener('keydown', ((e) => {
       if (this.state.menuOpen) return
@@ -90,7 +93,7 @@ class Game extends Component {
           return <image key={key} href={tile.img} x={x*tileSize} y={y*tileSize} />
         })
       })}
-      <Bird bird={this.state.bird} />
+      <Bird bird={this.state.bird} finished={this.state.finished} />
     </g>
   }
   move (dir) {
@@ -110,6 +113,10 @@ class Game extends Component {
     if (blocked) {
       dx = 0
       dy = 0
+      if (this.state.finished) {
+        setTimeout(()=>this.setState(initialState), 2300)
+        this.state.audio.GuThing.play()
+      }
     } else {
       this.eatWorm(x+dx, y+dy)
       setTimeout(this.move.bind(this), 50)
@@ -128,7 +135,7 @@ class Game extends Component {
   eatWorm(x,y) {
     const tile = this.state.tiles[y][x]
     if (tile && !tile.img) {
-      if (this.state.wormCount == 1) return this.finishLevel()
+      if (this.state.wormCount == 1) this.setState({finished: true})
       this.state.wormCount -= 1
       this.state.tiles[y][x] = null //setState
       this.state.audio.EatWorm.play()
@@ -149,9 +156,6 @@ class Game extends Component {
       }
       this.setState(newState)
     }
-  }
-  finishLevel(){
-    this.setState(initialState)
   }
 }
 
