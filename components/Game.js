@@ -76,7 +76,7 @@ class Game extends Component {
     return (<svg id='game' viewBox={vb.join(' ')} width='100%'>
       <BackGround vb={vb} />
       {this.renderLevel()}
-      <Menu vb={vb} open={this.state.menuOpen} startLevel={this.startLevel} />
+      {this.state.menuOpen ? <Menu vb={vb} startLevel={this.startLevel} /> : ''}
     </svg>)
   }
   renderLevel() {
@@ -142,20 +142,18 @@ class Game extends Component {
     }
   }
   startLevel(num) {
-    return () => {
-      const tiles = getTiles(num)
-      const level = getLevel(num)
+    const tiles = getTiles(num)
+    const level = getLevel(num)
 
-      const {x, y} = level.pos
-      const newState = {
-        ...initialState,
-        tiles,
-        menuOpen: !this.state.menuOpen,
-        bird: {...initialState.bird, x, y},
-        wormCount: level.wormCount
-      }
-      this.setState(newState)
+    const {x, y} = level.pos
+    const newState = {
+      ...initialState,
+      tiles,
+      menuOpen: !this.state.menuOpen,
+      bird: {...initialState.bird, x, y},
+      wormCount: level.wormCount
     }
+    this.setState(newState)
   }
 }
 
