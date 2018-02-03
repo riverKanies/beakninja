@@ -1,4 +1,5 @@
 import { Component } from 'react'
+import Head from 'next/head'
 import Bird from './Bird'
 import Worm from './Worm'
 import BackGround from './decor/BackGround'
@@ -58,26 +59,53 @@ class Game extends Component {
     this.state.audio.GuThing = document.createElement('audio')
     this.state.audio.GuThing.src = '/static/audio/GuThing.m4a'
 
+//
+    document.body.addEventListener('touchstart', ()=>{
+      console.log('touch')
+    })
+
+    const script = document.createElement('script');
+    script.onload = ()=>{
+      console.log('loaded')
+      const hammertime = new Hammer(document.body);
+      hammertime.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
+      hammertime.on('swipe', (ev)=>{
+        console.log('swiping', ev.offsetDirection);
+        const keyconverter = {2: 'left', 4: 'right', 8: 'up', 16: 'down'}
+        const dir = keyconverter[ev.offsetDirection]
+        this.input(dir)
+      });
+    };
+    script.src = '/static/src/hammer.js';
+    document.head.appendChild(script);
+//
     document.body.addEventListener('keydown', ((e) => {
-      if (this.state.menuOpen) return
-      if (this.state.bird.moving) return
       const keyconverter = {38: 'up', 37: 'left', 40: 'down', 39: 'right'}
       const dir = keyconverter[e.keyCode]
-      this.move(dir)
-      if (dir) {
-        const sound = Math.random() < .5 ? 'BaaThing' : 'BaThiiing'
-        const noise = Math.random() < .7 ? this.state.audio[sound] : null
-        if (noise) noise.play()
-      }
-      }).bind(this))
+      this.input(dir)
+    }).bind(this))
     this.animate()
   }
+  input (dir) {
+    if (this.state.menuOpen) return
+    if (this.state.bird.moving) return
+    this.move(dir)
+    if (dir) {
+      const sound = Math.random() < .5 ? 'BaaThing' : 'BaThiiing'
+      const noise = Math.random() < .7 ? this.state.audio[sound] : null
+      if (noise) noise.play()
+    }
+  }
   render () {
-    return (<svg id='game' viewBox={vb.join(' ')} width='100%'>
-      <BackGround vb={vb} />
-      {this.renderLevel()}
-      {this.state.menuOpen ? <Menu vb={vb} startLevel={this.startLevel} /> : ''}
-    </svg>)
+    return (<div>
+      <Head>
+      </Head>
+      <svg id='game' viewBox={vb.join(' ')} width='100%'>
+        <BackGround vb={vb} />
+        {this.renderLevel()}
+        {this.state.menuOpen ? <Menu vb={vb} startLevel={this.startLevel} /> : ''}
+      </svg>
+    </div>)
   }
   renderLevel() {
     const tiles = this.state.tiles
