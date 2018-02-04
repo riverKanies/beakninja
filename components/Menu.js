@@ -31,6 +31,7 @@ class Menu extends Component {
                         textAnchor={'middle'}
                         fontSize={'150px'}
                         strokeWidth={2}
+                        onTouchStartCapture={this.startTransitionOut(num)}
                         onMouseDown={this.startTransitionOut(num)}
                     >
                         {num}
