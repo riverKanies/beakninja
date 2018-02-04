@@ -34,7 +34,8 @@ const initialState = {
   bird: {x:0, y:0, dir: 'down', frame: 1, moving: false},
   tiles: null,
   wormCount: -1,
-  menuOpen: true
+  menuOpen: true,
+  finished: false
 }
 
 class Game extends Component {
@@ -44,7 +45,7 @@ class Game extends Component {
     this.state = initialState
     this.state.audio = {}
     this.state.wormFrame = 1
-    this.state.finished = false
+    this.state.offset = {x: 0, y: 0, tileSize: 30}
 
     this.startLevel = this.startLevel.bind(this)
   }
@@ -60,26 +61,9 @@ class Game extends Component {
     this.state.audio.GuThing.src = '/static/audio/GuThing.m4a'
 
     // resize
-    const aspectRatio = 12/7 // width/height
-    function resize(canvas, svg) {
-        const width = window.innerWidth
-        const height = window.innerHeight
-        if (width/height > aspectRatio) {
-            const canvasWidth = height * aspectRatio
-            canvas.style.width = canvasWidth
-            canvas.style.marginLeft = ( width - canvasWidth ) / 2
-            canvas.style.marginTop = 0
-        } else {
-            canvas.style.width = width
-            const canvasHeight = width / aspectRatio
-            canvas.style.marginTop = (height - canvasHeight)/2
-            canvas.style.marginLeft = 0
-        }
-    }
-    const canvas = document.getElementById('game')
-    resize(canvas)
-    window.addEventListener('resize', function () {
-        resize(canvas)
+    this.resize()
+    window.addEventListener('resize', ()=>{
+        this.resize()
     }, false)
 
     // load hammer and set swipe listeners
@@ -106,6 +90,19 @@ class Game extends Component {
     // start animations
     this.animate()
   }
+  resize() {
+    const aspectRatio = 12/7 // width/height
+    const width = window.innerWidth
+    const height = window.innerHeight
+    if (width/height > aspectRatio) {
+      // height 100%
+      const canvasWidth = height * aspectRatio
+      this.setState({offset: {x: ( width - canvasWidth ) / 2, y: 0, tileSize: height/14} })
+    } else {
+      const canvasHeight = width / aspectRatio
+      this.setState({offset: {x: 0, y: (height - canvasHeight)/2, tileSize: width/24} })
+    }
+  }
   input (dir) {
     if (this.state.menuOpen) return
     if (this.state.bird.moving) return
@@ -117,30 +114,33 @@ class Game extends Component {
     }
   }
   render () {
-    return (<div id='canvas' style={{width: '100%'}}>
-      <svg id='game' viewBox={vb.join(' ')} width='100%'>
+    const { x, y, tileSize } = this.state.offset
+    return (<div style={{marginLeft: `${x}px`, marginTop: `${y}px`, width: `${tileSize*24}px`, height: `${tileSize*14}px`}}>
+      {this.renderLevel()}
+      <svg viewBox={vb.join(' ')} width='100%'>
         <BackGround vb={vb} />
-        {this.renderLevel()}
         {this.state.menuOpen ? <Menu vb={vb} startLevel={this.startLevel} /> : ''}
       </svg>
     </div>)
   }
   renderLevel() {
+    const tileSize = this.state.offset.tileSize
     const tiles = this.state.tiles
     if (!tiles) return '' // || !tiles[0] || !tiles[0][0]
-    return <g>
-      {this.state.tiles.map((row, i)=>{
+    let level = (
+      this.state.tiles.map((row, i)=>{
         return row.map((tile, j)=>{
           if (!tile) return ''
           const x = j
           const y = i
           const key = i+'-'+j
-          if (!tile.img) return <Worm key={key} {...{...tile, x, y, frame: this.state.wormFrame}} />
-          return <image key={key} href={tile.img} x={x*tileSize} y={y*tileSize} />
+          if (!tile.img) return <Worm key={key} {...{...tile, x, y, frame: this.state.wormFrame, tileSize}} />
+          return <img key={key} src={tile.img} style={{marginLeft: x*tileSize+'px', marginTop: y*tileSize+'px', width: tileSize+'px', height: tileSize+'px'}} />
         })
-      })}
-      <Bird bird={this.state.bird} finished={this.state.finished} />
-    </g>
+      })
+    )
+    level.push(<Bird key={-1} bird={this.state.bird} finished={this.state.finished} tileSize={this.state.offset.tileSize} />)
+    return level
   }
   move (dir) {
     if (!this.state.tiles) return
@@ -160,7 +160,10 @@ class Game extends Component {
       dx = 0
       dy = 0
       if (this.state.finished) {
-        setTimeout(()=>this.setState(initialState), 2300)
+        setTimeout(()=>{
+          this.setState(initialState)
+          this.resize()
+        }, 2300)
         this.state.audio.GuThing.play()
       }
     } else {
@@ -199,7 +202,8 @@ class Game extends Component {
       bird: {...initialState.bird, x, y},
       wormCount: level.wormCount
     }
-    this.setState(newState)
+    this.setState({...this.state, ...newState})
+    this.resize()
   }
 }
 

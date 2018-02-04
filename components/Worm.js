@@ -1,8 +1,7 @@
-const tileSize = 30
 export default (props) => {
-    const {frame} = props
+    const {frame, tileSize} = props
     const dir = props.dir || 'down'
     let wormFrame = frame || 1
     const wormImage = `/static/worm/${dir}${wormFrame}.PNG`
-    return <image x={props.x*tileSize} y={props.y*tileSize} href={wormImage} />
+    return <img style={{marginLeft: props.x*tileSize+'px', marginTop: props.y*tileSize+'px', width: tileSize+'px', height: tileSize+'px'}} src={wormImage} />
 }

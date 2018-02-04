@@ -56,7 +56,6 @@ class Menu extends Component {
     transitionOut(num) {
         setTimeout(()=>{
             if (this.state.transitionCount >= 2*steps) {
-                console.log('starting level', num)
                 return this.props.startLevel(num)
             }
             this.setState({transitionCount: this.state.transitionCount+1})

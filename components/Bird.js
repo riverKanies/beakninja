@@ -1,5 +1,5 @@
-const tileSize = 30
 export default (props) => {
+    const { tileSize } = props
     const {moving, frame} = props.bird
     let dir = props.bird.dir || 'down'
     let birdFrame = frame || 1
@@ -8,22 +8,23 @@ export default (props) => {
         dir = 'finish'
         birdFrame = 1
     }
-    let x = 0
-    let y = 0
+
+    const pixelSize = tileSize/30
+    let dx = 0
+    let dy = 0
     if (dir == 'up') {
-        x=-10
+        dx=-10 * pixelSize
     } else if (dir == 'down' || dir == 'finish') {
-        x=-10
-        y=-20
+        dx=-10 * pixelSize
+        dy=-20 * pixelSize
     } else if (dir == 'left') {
-        y=-10
-        if (!moving) y=-20
+        dy=-10 * pixelSize
+        if (!moving) dy=-20 * pixelSize
     } else if (dir == 'right') {
-        y=-10
-        if (!moving) y=-20
-        x=-20
+        dy=-10 * pixelSize
+        if (!moving) dy=-20 * pixelSize
+        dx=-20 * pixelSize
     }
-    const transform = `translate(${x},${y})`
     const birdImage = `/static/bird/${(moving ? 'move-' : '')}${dir}${birdFrame}.PNG`
-    return <image x={props.bird.x*tileSize} y={props.bird.y*tileSize} href={birdImage} transform={transform}/>
+    return <img style={{marginLeft: props.bird.x*tileSize+dx +'px', marginTop: props.bird.y*tileSize+dy +'px', width: tileSize*5/3+'px', height: tileSize*5/3+'px'}} src={birdImage} />
 }

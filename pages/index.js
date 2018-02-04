@@ -15,6 +15,9 @@ const Index = () => (
               background: black;
               margin: 0;
           }
+          img {
+              position: absolute;
+          }
       `}</style>
     </div>
 )
