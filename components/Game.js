@@ -42,10 +42,11 @@ class Game extends Component {
   constructor (props) {
     super(props)
 
-    this.state = initialState
+    this.state = {...initialState}
     this.state.audio = {}
     this.state.wormFrame = 1
     this.state.offset = {x: 0, y: 0, tileSize: 30}
+    this.state.lastSound = Date.now()
 
     this.startLevel = this.startLevel.bind(this)
   }
@@ -59,7 +60,7 @@ class Game extends Component {
     this.state.audio.EatWorm.src = '/static/audio/EatWorm.m4a'
     this.state.audio.GuThing = document.createElement('audio')
     this.state.audio.GuThing.src = '/static/audio/GuThing.m4a'
-
+    
     // resize
     this.resize()
     window.addEventListener('resize', ()=>{
@@ -86,6 +87,11 @@ class Game extends Component {
       const dir = keyconverter[e.keyCode]
       this.input(dir)
     }).bind(this))
+    document.body.addEventListener('touchstart', (()=>{
+      console.log('touch')
+      if (!this.state.tiles) return
+      this.badThingSound()
+    }).bind(this))
 
     // start animations
     this.animate()
@@ -108,10 +114,16 @@ class Game extends Component {
     if (this.state.bird.moving) return
     this.move(dir)
     if (dir) {
-      const sound = Math.random() < .5 ? 'BaaThing' : 'BaThiiing'
-      const noise = Math.random() < .7 ? this.state.audio[sound] : null
-      if (noise) noise.play()
+      this.badThingSound()
     }
+  }
+  badThingSound() {
+    const now = Date.now()
+    if ( (now-this.state.lastSound) < 1000) return
+    const sound = Math.random() < .5 ? 'BaaThing' : 'BaThiiing'
+    const noise = Math.random() < .8 ? this.state.audio[sound] : null
+    if (noise) noise.play()
+    this.setState({lastSound: now})
   }
   render () {
     const { x, y, tileSize } = this.state.offset
@@ -196,13 +208,14 @@ class Game extends Component {
 
     const {x, y} = level.pos
     const newState = {
+      ...this.state,
       ...initialState,
       tiles,
       menuOpen: !this.state.menuOpen,
       bird: {...initialState.bird, x, y},
       wormCount: level.wormCount
     }
-    this.setState({...this.state, ...newState})
+    this.setState(newState)
     this.resize()
   }
 }
