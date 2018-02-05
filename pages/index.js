@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import Header from '../components/Header'
+import Head from 'next/head'
 import Game from '../components/Game'
 
 const Index = () => (

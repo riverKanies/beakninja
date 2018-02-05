@@ -1,12 +1,12 @@
 const ee = null
-const t1 = {img: '/static/tiles/tree1.PNG'}
-const t2 = {img: '/static/tiles/tree2.PNG'}
-const d1 = {img: '/static/tiles/dirt1.PNG'}
-const d2 = {img: '/static/tiles/dirt2.PNG'}
-const b1 = {img: '/static/tiles/branch1.PNG'}
-const b2 = {img: '/static/tiles/branch2.PNG'}
-const bR = {img: '/static/tiles/branchR.PNG'}
-const bL = {img: '/static/tiles/branchL.PNG'}
+const t1 = {img: 'https://s3-us-west-2.amazonaws.com/beakninja/tiles/tree1.PNG'}
+const t2 = {img: 'https://s3-us-west-2.amazonaws.com/beakninja/tiles/tree2.PNG'}
+const d1 = {img: 'https://s3-us-west-2.amazonaws.com/beakninja/tiles/dirt1.PNG'}
+const d2 = {img: 'https://s3-us-west-2.amazonaws.com/beakninja/tiles/dirt2.PNG'}
+const b1 = {img: 'https://s3-us-west-2.amazonaws.com/beakninja/tiles/branch1.PNG'}
+const b2 = {img: 'https://s3-us-west-2.amazonaws.com/beakninja/tiles/branch2.PNG'}
+const bR = {img: 'https://s3-us-west-2.amazonaws.com/beakninja/tiles/branchR.PNG'}
+const bL = {img: 'https://s3-us-west-2.amazonaws.com/beakninja/tiles/branchL.PNG'}
 
 const w1 = {dir: 'down'}
 const w2 = {dir: 'up'}

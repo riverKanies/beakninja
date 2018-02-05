@@ -25,6 +25,6 @@ export default (props) => {
         if (!moving) dy=-20 * pixelSize
         dx=-20 * pixelSize
     }
-    const birdImage = `/static/bird/${(moving ? 'move-' : '')}${dir}${birdFrame}.PNG`
+    const birdImage = `https://s3-us-west-2.amazonaws.com/beakninja/bird/${(moving ? 'move-' : '')}${dir}${birdFrame}.PNG`
     return <img style={{marginLeft: props.bird.x*tileSize+dx +'px', marginTop: props.bird.y*tileSize+dy +'px', width: tileSize*5/3+'px', height: tileSize*5/3+'px'}} src={birdImage} />
 }

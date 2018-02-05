@@ -5,5 +5,10 @@ Deploy:
 `surge --domain beakninja.surge.sh`
 
 Notes:
-<image> tags were not working in svg on iOS safari.
+
+- caching: surge uses cache validation, which means that each time an image renders (changes) in the game, the browser sends a request to the surge server to verify that the image resource hasn't changed. This really hurts game performance.
+https://surge.sh/help/using-lucid-caching-automatically
+So I moved images to s3 and now browsers will cache by default
+
+- <image> tags were not working in svg on iOS safari.
 I discovered it's because it won't load images within svg because it considers svg to be an image (... or something, never really found a great explanation)
