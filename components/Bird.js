@@ -6,7 +6,6 @@ export default (props) => {
     if (moving) birdFrame = 1
     if (props.finished && !moving) {
         dir = 'finish'
-        birdFrame = 1
     }
 
     const pixelSize = tileSize/30

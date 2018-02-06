@@ -8,8 +8,8 @@ const r = 40
 export default (props) => (<g transform='translate(0,-45)'>
     <defs>
         <radialGradient id={gradientId} cx={.2} cy={.3} r={1.5} fx={0} fy={.2}>
-            <stop offset="0%" stopColor={`hsl(120,50%,45%)`}/>
-            <stop offset="100%" stopColor={`hsl(120,50%,30%)`}/>
+            <stop offset="0%" stopColor={`hsl(120,50%,50%)`}/>
+            <stop offset="100%" stopColor={`hsl(120,50%,33%)`}/>
         </radialGradient>
     </defs>
     <linearGradient id={gradientId2} cx={.8} cy={.3} >
