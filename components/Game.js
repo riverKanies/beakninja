@@ -95,7 +95,7 @@ class Game extends Component {
 
     //
     window.addToHomescreen.removeSession()
-    window.addToHomescreen({modal: true, debug: true})
+    window.addToHomescreen({modal: true})
 
     // start animations
     this.animate()

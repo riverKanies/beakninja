@@ -1,6 +1,7 @@
 import { Component } from 'react'
+import Tree from './decor/Tree'
 
-const space = 180
+const space = 200
 const levels = [1, 2, 3]
 
 const stepTime = 30 //milliseconds
@@ -20,22 +21,26 @@ class Menu extends Component {
     render () {
         const vb = this.props.vb
         return <g>
-            <rect x={vb[0]} y={vb[1]} width={vb[2]} height={vb[3]} fill={'white'} opacity={'.5'}/>
             <g transform={`translate(${-vb[2] + (vb[2]/steps)*this.state.transitionCount},0)`}>
                 {levels.map((num)=>{
-                    return <text key={num}
-                        x={(vb[2]/2) - (space*(levels.length-1)/2) + (space*(num-1))}
-                        y={vb[3]/2 + 30}
-                        fill={'hsl(280,80%,40%)'}
-                        stroke={'hsl(280,70%,60%)'}
-                        textAnchor={'middle'}
-                        fontSize={'150px'}
-                        strokeWidth={2}
-                        onTouchStartCapture={this.startTransitionOut(num)}
-                        onMouseDown={this.startTransitionOut(num)}
-                    >
-                        {num}
-                    </text>
+                    const x = (vb[2]/2) - (space*(levels.length-1)/2) + (space*(num-1))
+                    const y = vb[3]/2 + 30
+                    return <g>
+                        <Tree transform={`translate(${x},${y})`} />
+                        <text key={num}
+                            x={x}
+                            y={y}
+                            fill={'hsl(280,80%,40%)'}
+                            stroke={'hsl(280,70%,60%)'}
+                            textAnchor={'middle'}
+                            fontSize={'100px'}
+                            strokeWidth={2}
+                            onTouchStartCapture={this.startTransitionOut(num)}
+                            onMouseDown={this.startTransitionOut(num)}
+                            >
+                            {num}
+                        </text>
+                    </g>
                 })}
             </g>
         </g>
