@@ -93,6 +93,10 @@ class Game extends Component {
       this.badThingSound()
     }).bind(this))
 
+    //
+    window.addToHomescreen.removeSession()
+    window.addToHomescreen({modal: true, debug: true})
+
     // start animations
     this.animate()
   }
