@@ -3,19 +3,12 @@ import Bird from './Bird'
 import Worm from './Worm'
 import BackGround from './decor/BackGround'
 import Menu from './Menu'
-import level1 from './levels/1'
-import level2 from './levels/2'
-import level3 from './levels/3'
+import levels from './levels/index'
 
 const getLevel = (num)=>{
-  const levels = [
-    null,
-    level1,
-    level2,
-    level3
-  ]
-  return levels[num]
+  return levels[num-1]
 }
+
 const getTiles = (num)=>{
   const tiles = getLevel(num).level.map( (r,j)=>{
     return r.map( (c,i)=>{

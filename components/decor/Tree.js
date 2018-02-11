@@ -20,7 +20,7 @@ export default (props) => (<g transform='translate(0,-45)'>
     
     
     <g transform={props.transform}>
-        <rect x={-r/2} y={0} width={r} height={7*r} fill={`url(#${gradientId2})`} />
+        <rect x={-r/2} y={0} width={r} height={10*r} fill={`url(#${gradientId2})`} />
         <circle cx={-r} cy={r} r={r} fill={`url(#${gradientId})`} />  
         <circle cx={r} cy={r} r={r} fill={`url(#${gradientId})`} />
         <circle cx={-r} cy={0} r={r} fill={`url(#${gradientId})`} />

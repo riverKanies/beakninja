@@ -1,8 +1,8 @@
 import { Component } from 'react'
 import Tree from './decor/Tree'
+import {levelIndex} from './levels/index'
 
 const space = 200
-const levels = [1, 2, 3]
 
 const stepTime = 30 //milliseconds
 const steps = 10
@@ -23,10 +23,11 @@ class Menu extends Component {
         return <g>
             <rect x={vb[0]} y={vb[1]} width={vb[2]} height={vb[3]} fill={'black'} opacity={'.2'}/>
             <g transform={`translate(${-vb[2] + (vb[2]/steps)*this.state.transitionCount},0)`}>
-                {levels.map((num)=>{
-                    const x = (vb[2]/2) - (space*(levels.length-1)/2) + (space*(num-1))
-                    const y = vb[3]/2 + 30
-                    return <g>
+                {levelIndex.map((num)=>{
+                    const levelSection = Math.floor((num-1)/3)
+                    const x = space/2 - 7 + space*((num-1) % 3) + (levelSection * space/3)
+                    const y = 25 + vb[3]/4 + (levelSection * 115)
+                    return <g key={num}>
                         <Tree transform={`translate(${x},${y})`} />
                         <text key={num}
                             x={x}
