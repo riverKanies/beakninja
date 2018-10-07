@@ -66,6 +66,7 @@ class Game extends Component {
       const hammertime = new Hammer(document.body);
       hammertime.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
       hammertime.on('swipe', (ev)=>{
+        this.resize()
         const keyconverter = {2: 'left', 4: 'right', 8: 'up', 16: 'down'}
         const dir = keyconverter[ev.offsetDirection]
         this.input(dir)
