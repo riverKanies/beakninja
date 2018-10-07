@@ -10,7 +10,7 @@ const Index = () => (
             <meta name='apple-mobile-web-app-title' content='BeakNinja' />
             <meta name='apple-mobile-web-app-capable' content='yes' />
             <link rel='apple-touch-icon' href='/static/appIcon.PNG' />
-            <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+            <meta name="apple-mobile-web-app-status-bar-style" content="black" />
             <meta name="mobile-web-app-capable" content="yes" />
 
             <link rel='stylesheet' href='/static/src/addtohome.css' type="text/css" />
