@@ -5,7 +5,7 @@ import Game from '../components/Game'
 const Index = () => (
     <div>
         <Head>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0, minimal-ui" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             
             <meta name='apple-mobile-web-app-title' content='BeakNinja' />
             <meta name='apple-mobile-web-app-capable' content='yes' />
