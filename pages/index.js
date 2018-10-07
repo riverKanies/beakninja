@@ -21,18 +21,21 @@ const Index = () => (
         <Game />
 
         <style jsx global>{`
-          body {
-              image-rendering: -moz-crisp-edges;
-              image-rendering: -webkit-crisp-edges;
-              image-rendering: pixelated;
-              image-rendering: crisp-edges;
-          
-              background: black;
-              margin: 0;
-          }
-          img {
-              position: absolute;
-          }
+            html {
+                position: fixed;
+            }
+            body {
+                image-rendering: -moz-crisp-edges;
+                image-rendering: -webkit-crisp-edges;
+                image-rendering: pixelated;
+                image-rendering: crisp-edges;
+            
+                background: black;
+                margin: 0;
+            }
+            img {
+                position: absolute;
+            }
       `}</style>
     </div>
 )
