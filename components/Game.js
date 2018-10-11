@@ -40,8 +40,11 @@ class Game extends Component {
     this.state.wormFrame = 1
     this.state.offset = {x: 0, y: 0, tileSize: 30}
     this.state.lastSound = Date.now()
+    this.state.page = 1
 
     this.startLevel = this.startLevel.bind(this)
+    this.nextPage = this.nextPage.bind(this)
+    this.prevPage = this.prevPage.bind(this)
   }
   componentDidMount () {
     // audio
@@ -123,13 +126,20 @@ class Game extends Component {
     if (noise) noise.play()
     this.setState({lastSound: now})
   }
+  nextPage() {
+    this.setState({page: this.state.page+1})
+  }
+  prevPage() {
+    this.setState({page: this.state.page-1})
+  }
   render () {
     const { x, y, tileSize } = this.state.offset
+    const {page} = this.state
     return (<div style={{marginLeft: `${x}px`, marginTop: `${y}px`, width: `${tileSize*24}px`, height: `${tileSize*14}px`}}>
       {this.renderLevel()}
       <svg viewBox={vb.join(' ')} width='100%'>
         <BackGround vb={vb} />
-        {this.state.menuOpen ? <Menu vb={vb} startLevel={this.startLevel} /> : ''}
+        {this.state.menuOpen ? <Menu key={page} vb={vb} startLevel={this.startLevel} page={page} nextPage={this.nextPage} prevPage={this.prevPage}/> : ''}
       </svg>
     </div>)
   }
