@@ -41,6 +41,7 @@ class Game extends Component {
     this.state.offset = {x: 0, y: 0, tileSize: 30}
     this.state.lastSound = Date.now()
     this.state.page = 1
+    this.state.levelNum = 1
 
     this.startLevel = this.startLevel.bind(this)
     this.nextPage = this.nextPage.bind(this)
@@ -181,6 +182,8 @@ class Game extends Component {
       dy = 0
       if (this.state.finished) {
         setTimeout(()=>{
+          //save progress
+          localStorage.setItem('progress', this.state.levelNum+1)
           this.setState(initialState)
           this.resize()
         }, 2300)
@@ -218,6 +221,7 @@ class Game extends Component {
     const newState = {
       ...this.state,
       ...initialState,
+      levelNum: num,
       tiles,
       menuOpen: !this.state.menuOpen,
       bird: {...initialState.bird, x, y},

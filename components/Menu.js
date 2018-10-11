@@ -14,12 +14,15 @@ class Menu extends Component {
         this.state = {}
         this.state.transitionCount = 0
         this.state.transitionedIn = false
+        this.state.progress = 1
     }
     componentDidMount () {
         this.transitionIn()
+        this.setState({progress: parseInt(localStorage.getItem('progress')) || 1})
     }
     render () {
         const vb = this.props.vb
+        const progress = this.state.progress
         return <g>
             <rect x={vb[0]} y={vb[1]} width={vb[2]} height={vb[3]} fill={'black'} opacity={'.2'}/>
             <rect x={vb[2]-50} y={0} width={50} height={50} fill={'gray'} stroke={'black'} />
@@ -34,8 +37,17 @@ class Menu extends Component {
                     const levelSection = Math.floor((num-1)/3)
                     const x = space/2 - 7 + space*((num-1) % 3) + (levelSection * space/3)
                     const y = 25 + vb[3]/4 + (levelSection * 115)
+                    //const indSymbol = progress > i ? '' : ''
+                    let startLevel = this.startTransitionOut(i)
+                    let indicator = <text x={x} y={y-90} fill={'yellow'} textAnchor={'middle'}>&#x2713;</text>
+                    if (progress == i) indicator = <text x={x} y={y-90} fill={'yellow'} textAnchor={'middle'}>&#x2605;</text>
+                    if (i > progress ) {
+                        indicator = <text x={x} y={y-90} textAnchor={'middle'}>&#128274;</text>
+                        startLevel = null
+                    }
                     return <g key={i}>
                         <Tree transform={`translate(${x},${y})`} />
+                        {indicator}
                         <text key={i}
                             x={x}
                             y={y}
@@ -44,8 +56,8 @@ class Menu extends Component {
                             textAnchor={'middle'}
                             fontSize={'100px'}
                             strokeWidth={1.3}
-                            onTouchStartCapture={this.startTransitionOut(i)}
-                            onMouseDown={this.startTransitionOut(i)}
+                            onTouchStartCapture={startLevel}
+                            onMouseDown={startLevel}
                             >
                             {i}
                         </text>
