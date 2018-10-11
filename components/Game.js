@@ -161,6 +161,9 @@ class Game extends Component {
       })
     )
     level.push(<Bird key={-1} bird={this.state.bird} finished={this.state.finished} tileSize={this.state.offset.tileSize} />)
+    level.push(<div key={-2} onClick={()=>{this.setState(initialState)}} style={{width: tileSize+'px', height: tileSize+'px', background: 'gray', position: 'absolute',fontSize: tileSize+'px', textAlign: 'center'}}>
+      <div style={{marginTop: -tileSize/5+'px'}}>&#x2613;</div>
+    </div>)
     return level
   }
   move (dir) {
@@ -182,7 +185,6 @@ class Game extends Component {
       dy = 0
       if (this.state.finished) {
         setTimeout(()=>{
-          //save progress
           localStorage.setItem('progress', this.state.levelNum+1)
           this.setState(initialState)
           this.resize()
