@@ -22,8 +22,10 @@ class Menu extends Component {
         const vb = this.props.vb
         return <g>
             <rect x={vb[0]} y={vb[1]} width={vb[2]} height={vb[3]} fill={'black'} opacity={'.2'}/>
-            <rect x={vb[2]-50} y={0} width={50} height={50} fill={'white'} onMouseDown={this.startTransitionOut('next')}/>
-            <rect x={vb[0]} y={vb[3]-50} width={50} height={50} fill={'white'} onMouseDown={this.startTransitionOut('prev')}/>
+            <rect x={vb[2]-50} y={0} width={50} height={50} fill={'gray'} stroke={'black'} />
+            <text x={vb[2]-35} y={37} fill={'black'} fontSize={'50px'} onMouseDown={this.startTransitionOut('next')} onTouchStartCapture={this.startTransitionOut('next')}>></text>
+            <rect x={vb[0]} y={vb[3]-50} width={50} height={50} fill={'gray'} stroke={'black'} />
+            <text x={vb[0]+7} y={vb[3]-12} fill={'black'} fontSize={'50px'} onMouseDown={this.startTransitionOut('prev')} onTouchStartCapture={this.startTransitionOut('prev')}>{'<'}</text>
             <g transform={`translate(${-vb[2] + (vb[2]/steps)*this.state.transitionCount},0)`}>
                 {levelIndex.map((i)=>{
                     if (i>9*this.props.page || i<=9*(this.props.page-1)) return ''
