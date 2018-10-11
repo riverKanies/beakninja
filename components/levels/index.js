@@ -8,6 +8,10 @@ import level7 from './7'
 import level8 from './8'
 import level9 from './9'
 import level10 from './10'
+import level11 from './11'
+import level12 from './12'
+import level13 from './13'
+import level14 from './14'
 
 const levels = [
     level1,
@@ -20,6 +24,10 @@ const levels = [
     level8,
     level9,
     level10,
+    level11,
+    level12,
+    level13,
+    level14,
 ]
 
 export const levelIndex = levels.map((l,i)=>(i+1))
