@@ -225,7 +225,7 @@ class Game extends Component {
       ...initialState,
       levelNum: num,
       tiles,
-      menuOpen: !this.state.menuOpen,
+      menuOpen: false,
       bird: {...initialState.bird, x, y},
       wormCount: level.wormCount
     }
